@@ -1,5 +1,6 @@
 package ru.mobile.weather
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +16,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 @Serializable
-data class WeatherData(val temp: Float, val feels_like: Float)
+data class WeatherData(val temp: Float, val feels_like: Float, val pressure: Int, val humidity: Int)
 
 @Serializable
 data class Weather(val main: WeatherData)
@@ -64,6 +65,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
                     }
 
                     val res = Json { ignoreUnknownKeys = true }.decodeFromString<Weather>(response.body!!.string())
+
+                    val intent = Intent(this@MapsActivity, WeatherActivity::class.java)
+                    val item = Item((res.main.temp - 273.1).toInt(),
+                        (res.main.feels_like - 273.1).toInt(),
+                        res.main.pressure,
+                        res.main.humidity)
+                    intent.putExtra("item", item)
+                    startActivity(intent)
                     Log.d(TAG, res.main.temp.toString())
                 }
             }
