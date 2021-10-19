@@ -15,10 +15,12 @@ class WeatherActivity : AppCompatActivity() {
         val feelsLike = findViewById<TextView>(R.id.feelsLike)
         val pressure = findViewById<TextView>(R.id.pressure)
         val humidity = findViewById<TextView>(R.id.humidity)
+        val name = findViewById<TextView>(R.id.name)
 
         temp.text = item.temp.toString()
         feelsLike.text = item.feelsLike.toString()
         pressure.text = item.pressure.toString()
         humidity.text = item.humidity.toString()
+        name.text = item.name
     }
 }

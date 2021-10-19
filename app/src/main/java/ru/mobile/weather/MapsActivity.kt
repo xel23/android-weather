@@ -19,7 +19,7 @@ import kotlinx.serialization.json.*
 data class WeatherData(val temp: Float, val feels_like: Float, val pressure: Int, val humidity: Int)
 
 @Serializable
-data class Weather(val main: WeatherData)
+data class Weather(val main: WeatherData, val name: String)
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -70,7 +70,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapCli
                     val item = Item((res.main.temp - 273.1).toInt(),
                         (res.main.feels_like - 273.1).toInt(),
                         res.main.pressure,
-                        res.main.humidity)
+                        res.main.humidity,
+                        res.name)
                     intent.putExtra("item", item)
                     startActivity(intent)
                     Log.d(TAG, res.main.temp.toString())
